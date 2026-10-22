@@ -68,10 +68,11 @@ If this is the first time running the program, open the program and do a *SAVE* 
 
 *Tip: press Enter to accept default values when the program asks questions. Note that in (Y or n) the y is the default. The program isn't case-sensitive (only for world names, yeah, I had to say it just in case)*
 
-*All images belongs to Valheim official media from https://www.valheimgame.com*
 <p align="center"><img src="https://img2.storyblok.com/fit-in/1000x1000/f/157036/552x800/322109d551/build-2.png" alt="Valheim official media from https://www.valheimgame.com" width="276" height="400"/></p>
 
 ## Have a good one with the bois 🫡
+*All images belongs to Valheim official media from https://www.valheimgame.com*
+
 I will start making videos about this and other development things (game devlogs, hell yeah) once I get over my lazyness and abusive working conditions. So if you wanna kindly support and like this type of content...
 
 **Consider subscribing:** https://www.youtube.com/@CodeDruida
