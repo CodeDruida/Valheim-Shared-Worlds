@@ -1,0 +1,40 @@
+{
+  "Server": {
+    "githubToken": "<REPOSITORY_TOKEN>",
+    "githubRepository": "<REPOSITORY_OWNER_USERNAME>/<REPOSITORY_NAME>",
+    "maxWorldSaves": 7
+  },
+
+  "Client": 
+  {
+    "username": "<USERNAME>",
+    "pc_username": "<YOUR_PC_USERNAME>",
+    "steam_id": "<YOUR_STEAM_ID>",
+    "saveMode": "cloud",
+    "automatic_save_when_game_closes": true,
+
+    "Windows": {
+      "localSavePath": "C:/Users/%(pc_username)s/AppData/LocalLow/IronGate/Valheim/worlds_local",
+      "cloudSavePath": "C:/Program Files (x86)/Steam/userdata/%(steam_id)s/892970/remote/worlds",
+      "gameLaunch": "start steam://rungameid/892970"
+    },
+
+    "Linux": {
+      "localSavePath": "/home/%(pc_username)s/.config/unity3d/IronGate/Valheim/worlds_local",
+      "cloudSavePath": "/home/%(pc_username)s/.local/share/Steam/userdata/%(steam_id)s/892970/remote/worlds",
+      "gameLaunch": "xdg-open steam://rungameid/892970"
+    },
+
+    "MacOS": {
+      "localSavePath": "/Users/%(pc_username)s/Library/Application Support/IronGate/Valheim/worlds_local",
+      "cloudSavePath": "/Users/%(pc_username)s/Library/Application Support/Steam/userdata/%(steam_id)s/892970/remote/worlds",
+      "gameLaunch": "open steam://rungameid/892970"
+    }
+  },
+
+  "Config" : {
+    "SERVER_STATUS_FILE": "Server_Status.txt",
+    "SERVER_STATUS_MODEL": "[SERVER STATUS]\nStatus: %s\nWho is hosting: %s"
+  }
+}
+
