@@ -63,6 +63,7 @@ Open the config folder and edit the settings.json crucial fields (always insert 
 If this is the first time running the program, open the program and do a *SAVE* operation, there it will see there's no world available in database and ask for you to create one. You must create or already have a world Valheim in-game with the same name.
 
 **To 'OPEN the server':** Run the program before opening the game and run the command **LOAD**. This will get the lastests saves from the Github repository and import the one you select to your pc. Open Valheim, select the world, check "Start Server", and invite the bois
+
 **To 'CLOSE the server':** When you are done gaming, close Valheim. The program will detect the game closed and ask to **SAVE** your progress tp the repository. If you closed the program, open it and run the command **SAVE** on your world. There, ready for your friends to use and play
 
 *Tip: press Enter to accept default values when the program asks questions. Note that in (Y or n) the y is the default. The program isn't case-sensitive (only for world names, yeah, I had to say it just in case)*
