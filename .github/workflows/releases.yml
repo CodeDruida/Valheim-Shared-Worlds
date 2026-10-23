@@ -56,7 +56,7 @@ jobs:
           TARGET_DIR="dist/ValheimSharedWorlds"
 
           mkdir -p "$TARGET_DIR/config"
-          cp settings_template.json "$TARGET_DIR/config/settings.json"
+          cp config/settings_template.json "$TARGET_DIR/config/settings.json"
           mv "$TARGET_DIR" "dist/$APP"
 
           python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='dist', base_dir='$APP')"
