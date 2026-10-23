@@ -1,0 +1,93 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false   
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            name: Linux
+            format: gztar
+          - os: windows-latest
+            name: Windows
+            format: zip
+          - os: macos-latest
+            name: macOS
+            format: gztar
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build executable
+        run: pyinstaller --noconfirm --onedir --name ValheimSharedWorlds src/main.py
+
+       - name: Package
+       shell: bash
+       run: |
+         APP="ValheimSharedWorlds-${{ matrix.name }}"
+         TARGET_DIR="dist/ValheimSharedWorlds"
+         
+         mkdir -p "$TARGET_DIR/config"
+         
+         cp settings_template.json "$TARGET_DIR/config/settings.json"
+         
+         mv "$TARGET_DIR" "dist/$APP"
+         
+         python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='dist', base_dir='$APP')"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ValheimSharedWorlds-${{ matrix.name }}
+          path: ValheimSharedWorlds-${{ matrix.name }}.*
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*
+          generate_release_notes: true
