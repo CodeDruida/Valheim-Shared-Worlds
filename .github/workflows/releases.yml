@@ -48,7 +48,7 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build executable
-        run: pyinstaller --noconfirm --onedir --name ValheimSharedWorlds src/main.py
+        run: pyinstaller --noconfirm --onedir --name ValheimSharedWorlds main.py
 
       - name: Package
         run: |
