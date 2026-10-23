@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: false   
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-22.04
@@ -50,19 +50,16 @@ jobs:
       - name: Build executable
         run: pyinstaller --noconfirm --onedir --name ValheimSharedWorlds src/main.py
 
-       - name: Package
-       shell: bash
-       run: |
-         APP="ValheimSharedWorlds-${{ matrix.name }}"
-         TARGET_DIR="dist/ValheimSharedWorlds"
-         
-         mkdir -p "$TARGET_DIR/config"
-         
-         cp settings_template.json "$TARGET_DIR/config/settings.json"
-         
-         mv "$TARGET_DIR" "dist/$APP"
-         
-         python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='dist', base_dir='$APP')"
+      - name: Package
+        run: |
+          APP="ValheimSharedWorlds-${{ matrix.name }}"
+          TARGET_DIR="dist/ValheimSharedWorlds"
+
+          mkdir -p "$TARGET_DIR/config"
+          cp settings_template.json "$TARGET_DIR/config/settings.json"
+          mv "$TARGET_DIR" "dist/$APP"
+
+          python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='dist', base_dir='$APP')"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
