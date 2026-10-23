@@ -21,12 +21,18 @@ jobs:
           - os: ubuntu-22.04
             name: Linux
             format: gztar
+            mode: onefile
+            strip: --strip
           - os: windows-latest
             name: Windows
             format: zip
+            mode: onedir
+            strip: ''
           - os: macos-latest
             name: macOS
             format: gztar
+            mode: onefile
+            strip: --strip
 
     defaults:
       run:
@@ -48,18 +54,23 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build executable
-        run: pyinstaller --noconfirm --onedir --name ValheimSharedWorlds main.py
+        run: pyinstaller --noconfirm --${{ matrix.mode }} ${{ matrix.strip }} --exclude-module tkinter --exclude-module unittest --exclude-module pydoc --exclude-module sqlite3 --name ValheimSharedWorlds main.py
 
       - name: Package
         run: |
           APP="ValheimSharedWorlds-${{ matrix.name }}"
-          TARGET_DIR="dist/ValheimSharedWorlds"
+          PKG="package/$APP"
 
-          mkdir -p "$TARGET_DIR/config"
-          cp config/settings_template.json "$TARGET_DIR/config/settings.json"
-          mv "$TARGET_DIR" "dist/$APP"
+          mkdir -p "$PKG/config"
+          cp config/settings_template.json "$PKG/config/settings.json"
 
-          python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='dist', base_dir='$APP')"
+          if [ "${{ matrix.mode }}" = "onedir" ]; then
+            cp -r dist/ValheimSharedWorlds/. "$PKG/"
+          else
+            cp dist/ValheimSharedWorlds "$PKG/"
+          fi
+
+          python -c "import shutil; shutil.make_archive('$APP', '${{ matrix.format }}', root_dir='package', base_dir='$APP')"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
