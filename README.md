@@ -31,7 +31,7 @@ It is open-source, because, you know, stranger danger, don't download from stran
 
 ## How to Setup? - Total time: 10min~15min
 ### STEP 1 - Download: 
-Download the .zip from **Releases** (there are versions for every OS, I didn't test it on MacOS btw) and extract in any directory.
+Download the .zip from **Releases** (Scroll up Github page, on the right) (there are versions for every OS, I didn't test it on MacOS btw) and extract in any directory.
 
 ### STEP 2 - Setup Repository *(Only one player needs to do this)*: 
 One from your group needs to setup the repository:
